@@ -1,0 +1,10 @@
+[meta]
+name = "AlternativeActionKeys"
+author = "RuteNL"
+category = "Map Editor"
+
+version = "0.1.0"
+
+[script]
+dependencies = ["vJoy"]
+timeout = 50000
