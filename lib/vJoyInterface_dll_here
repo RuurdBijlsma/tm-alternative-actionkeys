@@ -1,0 +1,6 @@
+Get latest vJoyInterface.dll (amd64) from the SDK.zip from this location:
+
+https://sourceforge.net/projects/vjoystick/files/Beta%202.x/
+
+Extract the dll from the SDK.zip/SDK/lib/amd64/vJoyInterface.dll
+Put the dll in this folder (vJoy/lib)

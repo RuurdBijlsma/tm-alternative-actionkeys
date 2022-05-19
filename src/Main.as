@@ -17,7 +17,7 @@ bool realRight = false;
 float secondsToFullSteer = 0.3;
 
 UI::InputBlocking OnKeyPress(bool down, VirtualKey key) {
-    print("Key pressed: " + tostring(key));
+    // print("Key pressed: " + tostring(key));
     if(key == VirtualKey::A) {
         leftDown = down;
     }
