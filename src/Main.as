@@ -15,6 +15,8 @@ bool realRight = false;
 
 [Setting name="Time delay for full steer"]
 float secondsToFullSteer = 0.3;
+[Setting name="Time delay for resetting to neutral steering"]
+float secondsToNeutral = 0.2;
 
 UI::InputBlocking OnKeyPress(bool down, VirtualKey key) {
     // print("Key pressed: " + tostring(key));
@@ -53,7 +55,11 @@ void Update(float elapsedMs) {
         vJoy::SetAxis(vJoy::Axis::X, neutralSteer * 2);
         return;
     }
-    int adjustRate = int(float(neutralSteer) / secondsToFullSteer / 1000 * elapsedMs);
+    int adjustRate;
+    if(secondsToFullSteer != 0)
+        adjustRate = int(float(neutralSteer) / secondsToFullSteer / 1000 * elapsedMs);
+    else 
+        adjustRate = neutralSteer * 2;
     // print(tostring(adjustRate));
     if(leftDown) {
         if(steerAngle > neutralSteer)
@@ -70,15 +76,20 @@ void Update(float elapsedMs) {
             steerAngle = neutralSteer * 2;
     }
     if(!leftDown && !rightDown) {
+        int adjustRateDown;
+        if(secondsToNeutral != 0)
+            adjustRateDown = int(float(neutralSteer) / secondsToNeutral / 1000 * elapsedMs);
+        else 
+            adjustRateDown = neutralSteer * 2;
         // nothing held
         int differenceToNeutral = steerAngle - neutralSteer;
         // print("Diff: " + differenceToNeutral);
         if(differenceToNeutral > 0) {
             // right of neutral
-            steerAngle -= Math::Min(differenceToNeutral, adjustRate);
+            steerAngle -= Math::Min(differenceToNeutral, adjustRateDown);
         } else if(differenceToNeutral < 0) {
             // left of neutral
-            steerAngle += Math::Min(-differenceToNeutral, adjustRate);
+            steerAngle += Math::Min(-differenceToNeutral, adjustRateDown);
         }
     }
     // print(tostring(steerAngle));
